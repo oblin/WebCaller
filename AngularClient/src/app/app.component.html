@@ -1,0 +1,23 @@
+<div style="margin: 20px;">
+    <h1>Angular Client</h1>
+    
+    <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+    </div>
+
+    <label>Select Connection:</label>
+    <select [(ngModel)]="selectedConnection">
+        <option *ngFor="let conn of connections" [value]="conn.connectionId">
+            {{ conn.clientName }} ({{ conn.connectionId }})
+          </option>
+    </select>
+
+    <br><br>
+  
+    <label>Action:</label>
+    <input type="text" [(ngModel)]="action" placeholder="Enter action command">
+    <br><br>
+  
+    <button (click)="sendCommand()">Send Command</button>
+  </div>
+  
