@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebCaller</title>
+</head>
+<body>
+    <h1>WebCaller</h1>
+
+    <label>ConnectionId:</label>
+    <input type="text" id="connectionId" placeholder="Enter client ConnectionId here" style="width: 400px;">
+    <br><br>
+
+    <label>Action:</label>
+    <input type="text" id="actionCommand" placeholder="Enter action (e.g., LaunchNotepad)">
+    <br><br>
+
+    <button onclick="sendCommand()">Send Command</button>
+
+    <script>
+        async function sendCommand() {
+            const connectionId = document.getElementById('connectionId').value;
+            const action = document.getElementById('actionCommand').value;
+
+            if (!connectionId || !action) {
+                alert("Both ConnectionId and Action are required!");
+                return;
+            }
+
+            const url = `/invoke?connectionId=${encodeURIComponent(connectionId)}&action=${encodeURIComponent(action)}`;
+            
+            try {
+                const response = await fetch(url, { method: 'POST' });
+                if (response.ok) {
+                    alert('Command sent successfully.');
+                } else {
+                    alert('Failed to send command.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Error sending command.');
+            }
+        }
+    </script>
+</body>
+</html>
